@@ -2,6 +2,8 @@
 
 This project is a simple AI-powered scheduling assistant that helps you organize your daily tasks efficiently. By leveraging OpenAI's GPT-3.5 model, it generates an optimized schedule based on your input tasks, taking into account any specific time constraints you provide.
 
+![Daily Schedule AI Screenshot](./Screenshot.png)
+
 ## Features
 
 - Natural language input for tasks and time preferences
