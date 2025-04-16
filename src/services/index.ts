@@ -14,6 +14,11 @@ export async function generateSchedule(schedule: string): Promise<ScheduleRespon
   You will also need to return the reason for the schedule.
   If the user doesn't specify a time for a task, you should assume it can be done at any time.
   If the user specifies a time for a task, you should assume that task must be done at that time.
+  
+  Today is ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.
+  The user is in the Eastern Time Zone if you need to know the time of day, if not specified.
+  The user is in the United States if you need to know the location, if not specified.
+  Consider the country, state, and date when generating the schedule especially if today is a holiday, work day, or school day.
 
   The response should be in valid JSON format.
 
