@@ -8,14 +8,22 @@ function App() {
   const [generatedSchedule, setGeneratedSchedule] =
     useState<ScheduleResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     setIsLoading(true);
-    const generatedSchedule = await generateSchedule(schedule);
-    if (generatedSchedule) {
-      setGeneratedSchedule(generatedSchedule);
+    try {
+      setError(null);
+      const generatedSchedule = await generateSchedule(schedule);
+      if (generatedSchedule) {
+        setGeneratedSchedule(generatedSchedule);
+      }
+    } catch (error) {
+      console.error("Failed to generate schedule:", error);
+      setError("Failed to generate schedule. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleClear = () => {
@@ -58,6 +66,7 @@ function App() {
           Generated Schedule
         </h2>
         <div>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           {generatedSchedule ? (
             <>
               <p className="text-sm sm:text-base">{generatedSchedule.reason}</p>
