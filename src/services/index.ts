@@ -12,6 +12,9 @@ export async function generateSchedule(schedule: string): Promise<ScheduleRespon
   You will be given things that the user wants to do today.
   You will need to generate a schedule for the user to complete the tasks.
   You will also need to return the reason for the schedule.
+  If the user doesn't specify a time for a task, you should assume it can be done at any time.
+  If the user specifies a time for a task, you should assume that task must be done at that time.
+
   The response should be in valid JSON format.
 
   Example:
@@ -52,6 +55,8 @@ export async function generateSchedule(schedule: string): Promise<ScheduleRespon
         { role: "system", content: systemPrompt },
         { role: "user", content: schedule }
       ],
+      temperature: 0,
+      max_tokens: 1000
     }),
   });
   const data = await response.json();
