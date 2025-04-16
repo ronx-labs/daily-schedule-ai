@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./App.css";
-
+import { generateSchedule } from "./services";
 function App() {
   const [schedule, setSchedule] = useState("");
   const [generatedSchedule, setGeneratedSchedule] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGenerate = () => {
-    setGeneratedSchedule(schedule);
+  const handleGenerate = async () => {
+    setIsLoading(true);
+    const generatedSchedule = await generateSchedule(schedule);
+    setGeneratedSchedule(generatedSchedule);
+    setIsLoading(false);
   };
 
   return (
@@ -19,8 +23,8 @@ function App() {
           value={schedule}
           onChange={(e) => setSchedule(e.target.value)}
         />
-        <button className="bg-blue-500 text-white p-2 rounded-md" onClick={handleGenerate}>
-          Generate
+        <button className="bg-blue-500 text-white p-2 rounded-md" onClick={handleGenerate} disabled={isLoading}>
+          {isLoading ? "Generating..." : "Generate"}
         </button>
       </div>
       <div className="w-full h-96 border-2 border-gray-300 rounded-md p-4">
